@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8131E58129FDBF1100D02E5A /* knightPeko.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 8131E58029FDBF1000D02E5A /* knightPeko.atlas */; };
 		81FFF5E129FDAC5A000322F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFF5E029FDAC5A000322F6 /* AppDelegate.swift */; };
 		81FFF5E329FDAC5A000322F6 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81FFF5E229FDAC5A000322F6 /* GameScene.sks */; };
 		81FFF5E529FDAC5A000322F6 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81FFF5E429FDAC5A000322F6 /* Actions.sks */; };
@@ -15,9 +16,11 @@
 		81FFF5EC29FDAC5A000322F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81FFF5EA29FDAC5A000322F6 /* Main.storyboard */; };
 		81FFF5EE29FDAC5B000322F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81FFF5ED29FDAC5B000322F6 /* Assets.xcassets */; };
 		81FFF5F129FDAC5B000322F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81FFF5EF29FDAC5B000322F6 /* LaunchScreen.storyboard */; };
+		81FFF5F829FDBB3D000322F6 /* Knight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFF5F729FDBB3D000322F6 /* Knight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8131E58029FDBF1000D02E5A /* knightPeko.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = knightPeko.atlas; sourceTree = "<group>"; };
 		81FFF5DD29FDAC5A000322F6 /* RagnarokRacing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RagnarokRacing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FFF5E029FDAC5A000322F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81FFF5E229FDAC5A000322F6 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -27,6 +30,7 @@
 		81FFF5EB29FDAC5A000322F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		81FFF5ED29FDAC5B000322F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81FFF5F029FDAC5B000322F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		81FFF5F729FDBB3D000322F6 /* Knight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Knight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,9 +68,11 @@
 				81FFF5E429FDAC5A000322F6 /* Actions.sks */,
 				81FFF5E629FDAC5A000322F6 /* GameScene.swift */,
 				81FFF5E829FDAC5A000322F6 /* GameViewController.swift */,
+				81FFF5F729FDBB3D000322F6 /* Knight.swift */,
 				81FFF5EA29FDAC5A000322F6 /* Main.storyboard */,
 				81FFF5ED29FDAC5B000322F6 /* Assets.xcassets */,
 				81FFF5EF29FDAC5B000322F6 /* LaunchScreen.storyboard */,
+				8131E58029FDBF1000D02E5A /* knightPeko.atlas */,
 			);
 			path = RagnarokRacing;
 			sourceTree = "<group>";
@@ -132,6 +138,7 @@
 				81FFF5EC29FDAC5A000322F6 /* Main.storyboard in Resources */,
 				81FFF5E329FDAC5A000322F6 /* GameScene.sks in Resources */,
 				81FFF5EE29FDAC5B000322F6 /* Assets.xcassets in Resources */,
+				8131E58129FDBF1100D02E5A /* knightPeko.atlas in Resources */,
 				81FFF5F129FDAC5B000322F6 /* LaunchScreen.storyboard in Resources */,
 				81FFF5E529FDAC5A000322F6 /* Actions.sks in Resources */,
 			);
@@ -144,6 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81FFF5F829FDBB3D000322F6 /* Knight.swift in Sources */,
 				81FFF5E729FDAC5A000322F6 /* GameScene.swift in Sources */,
 				81FFF5E929FDAC5A000322F6 /* GameViewController.swift in Sources */,
 				81FFF5E129FDAC5A000322F6 /* AppDelegate.swift in Sources */,

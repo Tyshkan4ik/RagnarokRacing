@@ -20,10 +20,15 @@ class GameScene: SKScene {
     //время последнего вызова для метода обновления
     var lastUpdateTime: TimeInterval?
     
+    //создаем персонажа
+    var knight = Knight()
+    var arrayKnight: [SKTexture] = []
+    
     override func didMove(to view: SKView) {
         //меняем точку привязки спрайтов. Поменяли на нижний левый угол, по дефолту середина.
         anchorPoint = CGPoint.zero
-        
+        spawnKnight()
+        animateKnight()
     }
     
     /// создаем спрайт леса с дорогой и добавляем его к сцене. Метод принемает CGPoin тем самым знает куда поместить фоновый лес
@@ -78,6 +83,46 @@ class GameScene: SKScene {
         }
     }
     
+    func spawnKnight() {
+        
+        
+        let knightAnimatedAtlas = SKTextureAtlas(named: "knightPeko")
+        var walkFrames: [SKTexture] = []
+        let numImages = knightAnimatedAtlas.textureNames.count
+        for i in 1...numImages {
+            let knightTextureName = "knight\(i)"
+            walkFrames.append(knightAnimatedAtlas.textureNamed(knightTextureName))
+        }
+        arrayKnight = walkFrames
+        let firstFrameTexture = arrayKnight[0]
+        knight = Knight(texture: firstFrameTexture)
+        
+        //Задаем начальное положение персонажу, zPosition и minimumY
+        //определяем х-положение персонажа. Задаес положение в четверь горизонтали сцены, то есть половине от frame.midX
+        let knightX = frame.midX / 2.0
+        // расчитываем положение персонажа по оси У. 64 - это растояние от нижней точки экрана до положения персонажа.
+        let knightY = knight.frame.height / 2.0 + 90.0
+        //задаем начальное положение персонажу
+        knight.position = CGPoint(x: knightX, y: knightY)
+        // условно говоря это номер слоя над бэкграудом, наш фон на слое №0 по дефолту, а тут мы выставили 10, тем самым оставили слои чтобы разместить другие элементы между, если нужно.
+        knight.zPosition = 10
+        //задаем переменной минимумУ значение ниже которого персанаж опустится не сможет после прыжка.
+        knight.minimumY = knightY
+        
+        addChild(knight)
+    }
+    
+    func animateKnight() {
+        knight.run(SKAction.repeatForever(
+            SKAction.animate(
+                with: arrayKnight,
+                timePerFrame: 0.1,
+                resize: false,
+                restore: true
+            )),
+                   withKey:"walkingInPlaceKnight")
+    }
+    
     override func update(_ currentTime: TimeInterval) {
         // определяем время, прошедшее с момента последнего высова update
         // elapsedTime - показатель отслеживания временных интервалов в секунду
@@ -95,6 +140,6 @@ class GameScene: SKScene {
         let currentScrollAmount = scrollSpeed * scrollAdjustment
         
         updateForest(withScrollAmount: currentScrollAmount)
-       
+        
     }
 }
