@@ -17,6 +17,9 @@ class GameScene: SKScene {
     //настройка скорости движения направо для игры
     //это значение может увеличиваться по мере продвижения пользователя в игре
     var scrollSpeed: CGFloat = 5.0
+    //константа для гравитации (как быстро обьекты падают на землю)
+    let gravitySpeed: CGFloat = 1.2
+    
     //время последнего вызова для метода обновления
     var lastUpdateTime: TimeInterval?
     
@@ -35,6 +38,7 @@ class GameScene: SKScene {
         animateKnight()
         spawnPoring()
         animatePoring()
+        tapRecognizer()
     }
     
     /// создаем спрайт леса с дорогой и добавляем его к сцене. Метод принемает CGPoin тем самым знает куда поместить фоновый лес
@@ -163,6 +167,37 @@ class GameScene: SKScene {
                    withKey:"walkingInPlacePoring")
     }
     
+    /// добавляем распознователь нажатия, чтобы знать когда пользователь нажал на экран
+    func tapRecognizer() {
+        //каждый раз когда пользователь нажмет на экран будет вызываться handleTap
+        let tapMethod = #selector(GameScene.handleTap(tapGesture:))
+        //создаем распознователь нажатий
+        let tapGesture = UITapGestureRecognizer(target: self, action: tapMethod)
+        //добавляет новый распознователь жестов к представлению сцене
+        view?.addGestureRecognizer(tapGesture)
+    }
+    
+    //обновление положение персонажа при прыжке
+    func updateKnight() {
+        //устанавливаем новое значение скорости персонажа с учетом влияния гравитации
+        let velocityY = knight.velocity.y - gravitySpeed
+        knight.velocity = CGPoint(x: knight.velocity.x, y: velocityY)
+        
+        //устанавливаем новое положение персонажа по оси У на основе его скорости
+        let newKnightY: CGFloat = knight.position.y + knight.velocity.y
+        knight.position = CGPoint(x: knight.position.x, y: newKnightY)
+        
+        //проверяем приземлился ли персонаж на землю
+        if knight.position.y < knight.minimumY {
+            //останавливаем падение, чтобы персанаж не проволился под землю
+            knight.position.y = knight.minimumY
+            //скорость прыжка приравниваем к нулю
+            knight.velocity = CGPoint.zero
+            //говорим что персонаж на земле
+            knight.isOnGround = true
+        }
+    }
+    
     
     override func update(_ currentTime: TimeInterval) {
         // определяем время, прошедшее с момента последнего высова update
@@ -182,5 +217,18 @@ class GameScene: SKScene {
         
         updateForest(withScrollAmount: currentScrollAmount)
         
+        updateKnight()
+    }
+    
+    @objc
+    /// метод для прыжка персонажа
+    func handleTap(tapGesture: UITapGestureRecognizer) {
+        // персонаж подпрыгивает только если он находится на земле
+        if knight.isOnGround {
+            //задаем для персонажа скорость по оси У, равную его изначальной скорости прыжка
+            knight.velocity = CGPoint(x: 0.0, y: knight.jumpSpeed)
+            //отмечаем что персонаж не на земле
+            knight.isOnGround = false
+        }
     }
 }
