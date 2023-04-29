@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8131E58129FDBF1100D02E5A /* knightPeko.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 8131E58029FDBF1000D02E5A /* knightPeko.atlas */; };
+		8131E58329FDC08700D02E5A /* poring.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 8131E58229FDC08700D02E5A /* poring.atlas */; };
 		81FFF5E129FDAC5A000322F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFF5E029FDAC5A000322F6 /* AppDelegate.swift */; };
 		81FFF5E329FDAC5A000322F6 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81FFF5E229FDAC5A000322F6 /* GameScene.sks */; };
 		81FFF5E529FDAC5A000322F6 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81FFF5E429FDAC5A000322F6 /* Actions.sks */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		8131E58029FDBF1000D02E5A /* knightPeko.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = knightPeko.atlas; sourceTree = "<group>"; };
+		8131E58229FDC08700D02E5A /* poring.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = poring.atlas; sourceTree = "<group>"; };
 		81FFF5DD29FDAC5A000322F6 /* RagnarokRacing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RagnarokRacing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FFF5E029FDAC5A000322F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81FFF5E229FDAC5A000322F6 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				81FFF5ED29FDAC5B000322F6 /* Assets.xcassets */,
 				81FFF5EF29FDAC5B000322F6 /* LaunchScreen.storyboard */,
 				8131E58029FDBF1000D02E5A /* knightPeko.atlas */,
+				8131E58229FDC08700D02E5A /* poring.atlas */,
 			);
 			path = RagnarokRacing;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 				81FFF5EE29FDAC5B000322F6 /* Assets.xcassets in Resources */,
 				8131E58129FDBF1100D02E5A /* knightPeko.atlas in Resources */,
 				81FFF5F129FDAC5B000322F6 /* LaunchScreen.storyboard in Resources */,
+				8131E58329FDC08700D02E5A /* poring.atlas in Resources */,
 				81FFF5E529FDAC5A000322F6 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

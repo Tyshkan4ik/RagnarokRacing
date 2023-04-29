@@ -24,11 +24,17 @@ class GameScene: SKScene {
     var knight = Knight()
     var arrayKnight: [SKTexture] = []
     
+    //создаем монстра
+    var poring = SKSpriteNode()
+    var arrayPoring: [SKTexture] = []
+    
     override func didMove(to view: SKView) {
         //меняем точку привязки спрайтов. Поменяли на нижний левый угол, по дефолту середина.
         anchorPoint = CGPoint.zero
         spawnKnight()
         animateKnight()
+        spawnPoring()
+        animatePoring()
     }
     
     /// создаем спрайт леса с дорогой и добавляем его к сцене. Метод принемает CGPoin тем самым знает куда поместить фоновый лес
@@ -84,8 +90,6 @@ class GameScene: SKScene {
     }
     
     func spawnKnight() {
-        
-        
         let knightAnimatedAtlas = SKTextureAtlas(named: "knightPeko")
         var walkFrames: [SKTexture] = []
         let numImages = knightAnimatedAtlas.textureNames.count
@@ -122,6 +126,43 @@ class GameScene: SKScene {
             )),
                    withKey:"walkingInPlaceKnight")
     }
+    
+    /// создаем монстра
+    func spawnPoring() {
+        let poringAnimatedAtlas = SKTextureAtlas(named: "poring")
+        var walkFrames: [SKTexture] = []
+        let numImages = poringAnimatedAtlas.textureNames.count
+        for i in 1...numImages {
+            let poringTextureName = "poring\(i)"
+            walkFrames.append(poringAnimatedAtlas.textureNamed(poringTextureName))
+        }
+        arrayPoring = walkFrames
+        let firstFrameTexture = arrayPoring[0]
+        poring = SKSpriteNode(texture: firstFrameTexture)
+        
+        //Задаем начальное положение монстру, zPosition и minimumY
+        //определяем х-положение монстру.
+        let poringX = frame.midX * 1.5
+        // расчитываем положение монстра по оси У. 64 - это растояние от нижней точки экрана до положения монстра.
+        let poringY = knight.frame.height / 2.0 + 55.0
+        //задаем начальное положение монстру
+        poring.position = CGPoint(x: poringX, y: poringY)
+        poring.zPosition = 10
+        addChild(poring)
+    }
+    
+    /// анимируем монстра
+    func animatePoring() {
+        poring.run(SKAction.repeatForever(
+            SKAction.animate(
+                with: arrayPoring,
+                timePerFrame: 0.1,
+                resize: false,
+                restore: true
+            )),
+                   withKey:"walkingInPlacePoring")
+    }
+    
     
     override func update(_ currentTime: TimeInterval) {
         // определяем время, прошедшее с момента последнего высова update
