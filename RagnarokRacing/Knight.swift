@@ -11,7 +11,7 @@ class Knight: SKSpriteNode {
     // скорость
     var velocity = CGPoint.zero
     var minimumY: CGFloat = 0.0
-    var jumpSpeed: CGFloat = 20.0
+    var jumpSpeed: CGFloat = 12.0
     // на земле
     var isOnGround = true
 }
