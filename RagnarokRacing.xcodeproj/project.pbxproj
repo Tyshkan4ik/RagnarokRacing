@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8131E58129FDBF1100D02E5A /* knightPeko.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 8131E58029FDBF1000D02E5A /* knightPeko.atlas */; };
 		8131E58329FDC08700D02E5A /* poring.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 8131E58229FDC08700D02E5A /* poring.atlas */; };
+		81DC0FE42A01D51B00DE2EC7 /* knightDead@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DC0FE32A01D51B00DE2EC7 /* knightDead@3x.png */; };
 		81FFF5E129FDAC5A000322F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFF5E029FDAC5A000322F6 /* AppDelegate.swift */; };
 		81FFF5E329FDAC5A000322F6 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81FFF5E229FDAC5A000322F6 /* GameScene.sks */; };
 		81FFF5E529FDAC5A000322F6 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81FFF5E429FDAC5A000322F6 /* Actions.sks */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		8131E58029FDBF1000D02E5A /* knightPeko.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = knightPeko.atlas; sourceTree = "<group>"; };
 		8131E58229FDC08700D02E5A /* poring.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = poring.atlas; sourceTree = "<group>"; };
+		81DC0FE32A01D51B00DE2EC7 /* knightDead@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knightDead@3x.png"; sourceTree = "<group>"; };
 		81FFF5DD29FDAC5A000322F6 /* RagnarokRacing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RagnarokRacing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FFF5E029FDAC5A000322F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81FFF5E229FDAC5A000322F6 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -46,6 +48,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		81DC0FE22A01D4F300DE2EC7 /* fofo */ = {
+			isa = PBXGroup;
+			children = (
+				81DC0FE32A01D51B00DE2EC7 /* knightDead@3x.png */,
+			);
+			path = fofo;
+			sourceTree = "<group>";
+		};
 		81FFF5D429FDAC5A000322F6 = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +75,7 @@
 		81FFF5DF29FDAC5A000322F6 /* RagnarokRacing */ = {
 			isa = PBXGroup;
 			children = (
+				81DC0FE22A01D4F300DE2EC7 /* fofo */,
 				81FFF5E029FDAC5A000322F6 /* AppDelegate.swift */,
 				81FFF5E229FDAC5A000322F6 /* GameScene.sks */,
 				81FFF5E429FDAC5A000322F6 /* Actions.sks */,
@@ -140,6 +151,7 @@
 			files = (
 				81FFF5EC29FDAC5A000322F6 /* Main.storyboard in Resources */,
 				81FFF5E329FDAC5A000322F6 /* GameScene.sks in Resources */,
+				81DC0FE42A01D51B00DE2EC7 /* knightDead@3x.png in Resources */,
 				81FFF5EE29FDAC5B000322F6 /* Assets.xcassets in Resources */,
 				8131E58129FDBF1100D02E5A /* knightPeko.atlas in Resources */,
 				81FFF5F129FDAC5B000322F6 /* LaunchScreen.storyboard in Resources */,

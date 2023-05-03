@@ -8,9 +8,19 @@
 import SpriteKit
 import GameplayKit
 
+
+/// Структура содержит физические категории, и мы можем определить, какие обьекты сталкиваются или контактируют друг с другом
+struct PhysicsCategory {
+    static let knight: UInt32 = 0x1 << 0
+    static let poring: UInt32 = 0x1 << 1
+    static let gem: UInt32 = 0x1 << 2
+}
+
 class GameScene: SKScene {
     
     //MARK: - Properties
+    
+    var gameOver = false
     
     //массив, содержащий все текущие изображения фонового леса
     var forests = [SKSpriteNode]()
@@ -39,10 +49,14 @@ class GameScene: SKScene {
     //MARK: - Methods
     
     override func didMove(to view: SKView) {
+        //задаем направление гравитации (делаем это вместо способа гравитации через скорость)
+        physicsWorld.gravity = CGVector(dx: 0.0, dy: -6.0)
         //меняем точку привязки спрайтов. Поменяли на нижний левый угол, по дефолту середина.
+        physicsWorld.contactDelegate = self
         anchorPoint = CGPoint.zero
         spawnKnight()
         animateKnight()
+        knight.setupPhysicsBody()
         tapRecognizer()
     }
     
@@ -120,7 +134,7 @@ class GameScene: SKScene {
         //задаем начальное положение персонажу
         knight.position = CGPoint(x: knightX, y: knightY)
         // условно говоря это номер слоя над бэкграудом, наш фон на слое №0 по дефолту, а тут мы выставили 10, тем самым оставили слои чтобы разместить другие элементы между, если нужно.
-        knight.zPosition = 10
+        knight.zPosition = 9
         //задаем переменной минимумУ значение ниже которого персанаж опустится не сможет после прыжка.
         knight.minimumY = knightY
         addChild(knight)
@@ -160,11 +174,23 @@ class GameScene: SKScene {
         poring.zPosition = 10
         //добавляем обьект к сцене
         addChild(poring)
-        //обновляем свойство forestSize реальным значением размера фона
+        //обновляем свойство poringSize реальным значением размера монстра
         poringSize = poring.size
-        //добавляем новый лес к массиву
+        //добавляем нового монстра к массиву
         porings.append(poring)
-        //возвращаем новый лес
+        //        //создаем физическое тело
+        //        physicalBodyForMonster()
+        
+        if let poringTexture = poring.texture {
+            poring.physicsBody = SKPhysicsBody(texture: poringTexture, size: poring.size)
+            poring.physicsBody?.affectedByGravity = false
+            
+            // помещаем монстра в физическую категорию
+            poring.physicsBody?.categoryBitMask = PhysicsCategory.poring
+            // 0 - монстр не должен сталкиваться с чемлибо еще. Тут мы определяем как должен вести себя монстр в случае столкновения, нам нужно чтобы он не менял свою позицию.
+            poring.physicsBody?.collisionBitMask = 0
+        }
+        //возвращаем нового монстра
         return poring
     }
     
@@ -228,6 +254,19 @@ class GameScene: SKScene {
         poring.run(SKAction.repeatForever(sequence), withKey:  "Jumping")
     }
     
+    /// Создаем физическое тело для монстра
+    func physicalBodyForMonster() {
+        if let poringTexture = poring.texture {
+            poring.physicsBody = SKPhysicsBody(texture: poringTexture, size: poring.size)
+            poring.physicsBody?.affectedByGravity = false
+            
+            // помещаем монстра в физическую категорию
+            poring.physicsBody?.categoryBitMask = PhysicsCategory.poring
+            // 0 - монстр не должен сталкиваться с чемлибо еще. Тут мы определяем как должен вести себя монстр в случае столкновения, нам нужно чтобы он не менял свою позицию.
+            poring.physicsBody?.collisionBitMask = 0
+        }
+    }
+    
     /// Добавляем распознователь нажатия, чтобы знать когда пользователь нажал на экран
     func tapRecognizer() {
         //каждый раз когда пользователь нажмет на экран будет вызываться handleTap
@@ -260,25 +299,27 @@ class GameScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        // определяем время, прошедшее с момента последнего высова update
-        // elapsedTime - показатель отслеживания временных интервалов в секунду
-        var elapsedTime: TimeInterval = 0.0
-        if let lastTimeStamp = lastUpdateTime {
-            elapsedTime = currentTime - lastTimeStamp
+        if !gameOver {
+            // определяем время, прошедшее с момента последнего высова update
+            // elapsedTime - показатель отслеживания временных интервалов в секунду
+            var elapsedTime: TimeInterval = 0.0
+            if let lastTimeStamp = lastUpdateTime {
+                elapsedTime = currentTime - lastTimeStamp
+            }
+            lastUpdateTime = currentTime
+            
+            //расчитываем скорость перемещения
+            let expectedElapsedTime: TimeInterval = 1.0 / 40.0
+            
+            //рассчитаем насколько далеко должны сдвигаться обьекты при данном обновлении
+            let scrollAdjustment = CGFloat(elapsedTime / expectedElapsedTime)
+            let currentScrollAmount = scrollSpeed * scrollAdjustment
+            let currentScrollAmountPoring = currentScrollAmount * 1.2
+            
+            updateForest(withScrollAmount: currentScrollAmount)
+            updatePoring(withScrollAmount: currentScrollAmountPoring)
+            updateKnight()
         }
-        lastUpdateTime = currentTime
-        
-        //расчитываем скорость перемещения
-        let expectedElapsedTime: TimeInterval = 1.0 / 40.0
-        
-        //рассчитаем насколько далеко должны сдвигаться обьекты при данном обновлении
-        let scrollAdjustment = CGFloat(elapsedTime / expectedElapsedTime)
-        let currentScrollAmount = scrollSpeed * scrollAdjustment
-        let currentScrollAmountPoring = currentScrollAmount * 1.2
-        
-        updateForest(withScrollAmount: currentScrollAmount)
-        updatePoring(withScrollAmount: currentScrollAmountPoring)
-        updateKnight()
     }
     
     /// Метод для прыжка персонажа
@@ -291,5 +332,33 @@ class GameScene: SKScene {
             //отмечаем что персонаж не на земле
             knight.isOnGround = false
         }
+    }
+}
+
+//MARK: - extension
+
+extension GameScene: SKPhysicsContactDelegate {
+    
+    /// Вызывается при каждом контактефизических тел друг с другом
+    func didBegin(_ contact: SKPhysicsContact) {
+        //Проверяем есть ли контакт между персонажем и монстром
+        if contact.bodyA.categoryBitMask == PhysicsCategory.knight && contact.bodyB.categoryBitMask == PhysicsCategory.poring {
+            knight.isOnGround = false
+            
+            let deadTexture = SKTexture(imageNamed: "knightDead")
+            let action = SKAction.setTexture(deadTexture)
+            knight.run(action)
+            
+            knight.anchorPoint.y = CGFloat(0.99)
+            knight.speed = 0
+            knight.texture = deadTexture
+            gameOverFunc()
+        }
+    }
+    
+    /// Останавливается игра
+    func gameOverFunc() {
+        scrollSpeed = 0
+        gameOver = true
     }
 }
